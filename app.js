@@ -13,6 +13,11 @@ document.addEventListener("DOMContentLoaded", () => {
 // lista de amigos
 const amigos = [];
 
+const limpiarInput = () => {
+  const input = document.getElementById("amigo");
+  input.value = "";
+};
+
 // agregar amigo a la lista
 const agregarAmigo = () => {
   const input = document.getElementById("amigo");
@@ -20,10 +25,18 @@ const agregarAmigo = () => {
 
   if (name.trim() == "") {
     alert("Debe ingresar un nombre válido");
+    limpiarInput();
     return;
   }
+  // validar si el amigo ya existe
+  if (amigos.includes(name)) {
+    alert("El amigo ya existe");
+    limpiarInput();
+    return;
+  }
+
   amigos.push(name);
-  input.value = "";
+  limpiarInput();
   actualizarLista();
 };
 
@@ -37,6 +50,15 @@ const actualizarLista = () => {
     li.textContent = amigo;
     listaAmigos.appendChild(li);
   });
+};
+
+// reiniciar juego
+const reinicar = () => {
+  amigos.length = 0;
+  actualizarLista();
+  limpiarInput();
+  const resultado = document.getElementById("resultado");
+  resultado.innerHTML = "";
 };
 
 // sortear amigo con Math.random
