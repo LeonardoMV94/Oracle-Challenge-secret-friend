@@ -21,13 +21,21 @@ const limpiarInput = () => {
 // agregar amigo a la lista
 const agregarAmigo = () => {
   const input = document.getElementById("amigo");
-  const name = input.value;
+  // input sanitizado
+  const name = sanitizeInput(input.value.trim());
 
-  if (name.trim() == "") {
+  if (name == "") {
     alert("Debe ingresar un nombre válido");
     limpiarInput();
     return;
   }
+
+  if (!validarAmigo(name)) {
+    alert("Solo se permiten letras");
+    limpiarInput();
+    return;
+  }
+
   // validar si el amigo ya existe
   if (amigos.includes(name)) {
     alert("El amigo ya existe");
@@ -106,4 +114,20 @@ const sortearAmigo = () => {
   li2.textContent = `${amigoSorteado} !!!`;
   resultado.appendChild(li);
   resultado.appendChild(li2);
+};
+
+// seguridad
+const sanitizeInput = (str) => {
+  return str
+    .replace(/</g, "")
+    .replace(/>/g, "")
+    .replace(/&/g, "")
+    .replace(/'/g, "")
+    .replace(/"/g, "");
+};
+
+// validar que el nombre solo tenga letras
+const validarAmigo = (name) => {
+  const regex = /^[a-zA-ZñÑ\s]+$/;
+  return regex.test(name);
 };
