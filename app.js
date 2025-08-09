@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // lista de amigos
-const amigos = [];
+let amigos = [];
 
 const limpiarInput = () => {
   const input = document.getElementById("amigo");
@@ -40,6 +40,13 @@ const agregarAmigo = () => {
   actualizarLista();
 };
 
+// eliminar amigo de la lista
+const eliminarAmigo = (nombre) => {
+  amigos = amigos.filter(amigo => amigo !== nombre);
+  actualizarLista();
+};
+
+
 // actualizar el DOM con la lista de amigos
 const actualizarLista = () => {
   const listaAmigos = document.getElementById("listaAmigos");
@@ -47,7 +54,21 @@ const actualizarLista = () => {
 
   amigos.forEach((amigo) => {
     const li = document.createElement("li");
-    li.textContent = amigo;
+
+    // texto del amigo
+    const span = document.createElement("span");
+    span.textContent = amigo;
+
+    // botón eliminar
+    const btnEliminar = document.createElement("button");
+    btnEliminar.textContent = "x";
+    btnEliminar.style.marginLeft = "10px";
+    btnEliminar.addEventListener("click", () => eliminarAmigo(amigo));
+
+    // agregar elementos al li
+    li.appendChild(span);
+    li.appendChild(btnEliminar);
+
     listaAmigos.appendChild(li);
   });
 };
@@ -80,12 +101,9 @@ const sortearAmigo = () => {
 
   // agregar amigo sorteado a la lista
   const li = document.createElement("li");
-  li.textContent = `El amigo secreto sorteado es: ${amigoSorteado}`;
+  li.textContent = `El amigo secreto sorteado es:`;
+  const li2 = document.createElement("li");
+  li2.textContent = `${amigoSorteado} !!!`;
   resultado.appendChild(li);
-
-//   amigos.splice(numeroAleatorio, 1);
-
-//   if (amigos.length > 0) {
-//     sortearAmigo();
-//   }
+  resultado.appendChild(li2);
 };
