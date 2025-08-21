@@ -185,3 +185,21 @@ ul li button:hover {
 .button-draw:hover {
     background-color: var(--color-button-hover);
 }
+
+/* media queries */
+@media (max-width: 768px) {
+    .header-banner {
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+       justify-content: center;
+    }
+    .input-section {
+        padding: 10px
+    }
+    .button-container{
+        display: flex;
+        flex-direction: column;
+        gap: 10px
+    }
+}
